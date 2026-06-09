@@ -79,7 +79,7 @@ export function TaskModal() {
   const onClose = () => { setModalOpen(false); setEditingTask(null); };
 
  const onSubmit = (data: SchemaValues) => {
-    if (isEdit && editingTask) {
+    if (isEdit && editingTask) {  
       updateTask(editingTask.id, {
         title: data.title.trim(),
         description: data.description?.trim() || "",
