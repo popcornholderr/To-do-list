@@ -13,11 +13,11 @@ import type { TaskFormValues, Category, Priority } from "@/src/types";
 
 const schema = z.object({
   title: z.string().min(1, "Title is required").max(100),
-  description: z.string().max(500).default(""),
+  description: z.string().max(500),
   priority: z.enum(["low", "medium", "high", "critical"]),
   category: z.enum(["Personal", "Work", "Study", "Health", "Finance"]),
-  dueDate: z.string().default(""),
-  tags: z.string().default(""),
+  dueDate: z.string(),
+  tags: z.string(),
 });
 type SchemaValues = z.infer<typeof schema>;
 
