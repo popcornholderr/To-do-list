@@ -19,6 +19,7 @@ const schema = z.object({
   dueDate: z.string().default(""),
   tags: z.string().default(""),
 });
+type SchemaValues = z.infer<typeof schema>;
 
 const inputStyle: React.CSSProperties = {
   background: "var(--bg-1)",
@@ -52,8 +53,8 @@ export function TaskModal() {
   const isEdit = !!editingTask;
   const today = new Date().toISOString().split("T")[0];
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<TaskFormValues>({
-    resolver: zodResolver(schema),
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<SchemaValues>({
+  resolver: zodResolver(schema),
     defaultValues: {
       title: "", description: "", priority: "medium",
       category: "Work", dueDate: today, tags: "",
@@ -77,7 +78,7 @@ export function TaskModal() {
 
   const onClose = () => { setModalOpen(false); setEditingTask(null); };
 
-  const onSubmit = (data: TaskFormValues) => {
+ const onSubmit = (data: SchemaValues) => {
     if (isEdit && editingTask) {
       updateTask(editingTask.id, {
         title: data.title.trim(),
